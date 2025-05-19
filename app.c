@@ -126,18 +126,18 @@ void add(Store *store) {
     printf("Numele produsului: ");
     scanf(" %[^\n]", store->products[store->product_count]->name);
 
-    printf("Cantitate: ");
+    printf("Cantitate (ex: 10): ");
     //verifica daca cantitatea este int, sa nu se introduca alte tipuri
     while (scanf("%d", &store->products[store->product_count]->quantity)!=1) {
         printf("\nIntrodu o cantitate valida!\n");
-        printf("Cantitate: ");
+        printf("Cantitate (ex: 10): ");
         while (getchar() != '\n'); //curata buffer
     }
 
-    printf("Pret: ");
+    printf("Pret (ex: 20.99): ");
     while (scanf("%lf", &store->products[store->product_count]->price)!=1) {
         printf("\nIntrodu un pret valid\n");
-        printf("Pret: ");
+        printf("Pret (ex: 20.99): ");
         while (getchar() != '\n');
     }
 
@@ -192,21 +192,29 @@ void display_all(Store *store) {
     getchar();
 }
 
+void apasaenter() {
+    printf("\nApasa enter pentru a te intoarce la meniul principal.");
+    while (getchar() != '\n');
+    getchar();
+}
+
 void buy_menu(Store *store) {
     clearscreen();
     for (int i = 0; i < store->product_count; i++) {
-        printf("\n--- Produs #%d ---\n", i);
+        printf("\033[0;37m\n--- Produs %d ---\n", i);  // Linie albă
 
-        printf("\033[0;31mNume:\033[0;37m %s | ", store->products[i]->name);
-        printf("\033[0;31mTara:\033[0;37m %s | ", store->products[i]->country);
-        printf("\033[0;31mCantitate:\033[0;37m %d | ", store->products[i]->quantity);
-        printf("\033[0;31mPret:\033[0;37m %.2f | ", store->products[i]->price);
-        printf("\033[0;31mDescriere:\033[0;37m %s | \n", store->products[i]->description);
+        printf("\033[0;31mNume:\033[0;32m %s | ", store->products[i]->name);
+        printf("\033[0;31mTara:\033[0;32m %s | ", store->products[i]->country);
+        printf("\033[0;31mCantitate:\033[0;32m %d | ", store->products[i]->quantity);
+        printf("\033[0;31mPret:\033[0;32m %.2f | ", store->products[i]->price);
+        printf("\033[0;31mDescriere:\033[0;32m %s | \n", store->products[i]->description);
 
-        printf("-----------------\n\033[0m");
-
+        printf("\033[0;37m-----------------\n\033[0m");  // Linie albă și reset
     }
 }
+
+
+
 
 
 //functia pentru a vizualiza un singur produs (folosita la cautare)
